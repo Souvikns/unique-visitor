@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
+import { GetStaticProps } from 'next';
 import { Visits } from '../lib/supabase';
-import { label } from '../lib/svg';
 import Axios from 'axios';
 import Appbar from '../components/appbar';
 import Table from '../components/table';
@@ -46,11 +46,15 @@ const Index = ({ uniqueVisitors, totalHits, error }) => {
 
 export default Index;
 
-Index.getInitialProps = async ({ req, res }: any) => {
+
+
+export const getStaticProps: GetStaticProps = async (context) => {
     let { totalHits, uniqueHits, error } = await Visits()
     return {
-        uniqueVisitors: uniqueHits,
-        totalHits: totalHits,
-        error
+        props: {
+            uniqueVisitors: uniqueHits,
+            totalHits: totalHits,
+            error
+        }
     }
 }
