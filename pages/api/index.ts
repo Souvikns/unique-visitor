@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { supabase } from '../../lib/supabase';
+import { supabase, Visits } from '../../lib/supabase';
 import _ from 'lodash';
 import { label } from '../../lib/svg';
 
@@ -12,5 +12,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         await supabase.from("visitors").update({ count: data[0].count + 1 }).match({ ip: IP });
     }
     res.setHeader("content-type", "image/svg+xml");
-    res.end(label("visitor", data.length));
+    let { uniqueHits, totalHits } = await Visits();
+    res.end(label(uniqueHits, totalHits));
 }

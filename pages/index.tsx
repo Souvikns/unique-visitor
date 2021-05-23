@@ -1,13 +1,47 @@
+import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import { label } from '../lib/svg';
+import Axios from 'axios';
+import Appbar from '../components/appbar';
+import Table from '../components/table';
+import Badge from '../components/badge';
+
+
 const Index = ({ uniqueVisitors, totalHits, error }) => {
+    const userName = process.env.githubUserName;
+
+    const [avatar, setAvatar] = useState('');
+
+    const fetchGithubAvatar = async () => {
+        try {
+            let res = await Axios({ url: `https://api.github.com/users/${userName}`, method: "GET" });
+            setAvatar(res.data.avatar_url);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        fetchGithubAvatar();
+    }, [])
+
+    let hostName: string | undefined;
+    if (typeof window !== "undefined") {
+        hostName = window.location.href;
+    }
     if (error) {
         return <h1>Error</h1>
     }
-    return <>
-        <h2>{"Unique Visitors: "} {uniqueVisitors}</h2>
-        <h2>{"Total Visits: "} {totalHits}</h2>
-        <img src={`https://img.shields.io/badge/unique%20visitors-${uniqueVisitors}-green`} alt="" />
-    </>
+    return <div className="lg:mx-52 md:mx-36 sm: mx-16">
+        <Appbar avatar={avatar} userName={userName} />
+
+        <Table uniqueVisitors={uniqueVisitors} totalVisits={totalHits} />
+
+        <Badge hostName={hostName} uniqueVisitor={uniqueVisitors} totalVisitor={totalHits} />
+
+    </div>
+
+
 }
 
 export default Index;
