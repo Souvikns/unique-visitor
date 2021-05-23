@@ -7,8 +7,7 @@ import Table from '../components/table';
 import Badge from '../components/badge';
 
 
-const Index = ({ uniqueVisitors, totalHits, error }) => {
-    const userName = process.env.REACT_APP_GITHUB_USER_NAME;
+const Index = ({ uniqueVisitors, totalHits, error, userName }) => {
 
     const [avatar, setAvatar] = useState('');
 
@@ -48,12 +47,14 @@ const Index = ({ uniqueVisitors, totalHits, error }) => {
 export default Index;
 
 export const getStaticProps: GetStaticProps = async (context) => {
-    let { totalHits, uniqueHits, error } = await Visits()
+    let { totalHits, uniqueHits, error } = await Visits();
+    const userName = process.env.REACT_APP_GITHUB_USER_NAME;
     return {
         props: {
             uniqueVisitors: uniqueHits,
             totalHits: totalHits,
-            error
+            error,
+            userName
         }
     }
 }
