@@ -21,9 +21,16 @@ You not only need supabase `ENV` variables but also setup a table.
 
 ### Deploy 
 The application is built using (nextjs)[https://nextjs.org/] so just fork this repo and then you can deploy as you like just mind the `ENV` variables and supabase setup.
-- Open a project in supabase.
-- 
 
+- Open a project in supabase.
+    <img src="./reademe_images/create_project.PNG" width="600" />
+- From the side menu select `+ New table` option. 
+    - fill `visitors` in the **name** parameter and leave the rest as it is. 
+
+    <img src="./reademe_images/create_table.PNG"  width="600"/>
+- Now add two columns
+    1. Name: `ip`, Type: `text`, Allow Empty: `false`, Default Value: `NULL`
+    2. Name: `count`, Type: `int8`,Allow Empty: `true`, Default Value: `1`
 
 
 ---
