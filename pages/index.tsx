@@ -48,7 +48,7 @@ export default Index;
 
 export const getStaticProps: GetStaticProps = async (context) => {
     let { totalHits, uniqueHits, error } = await Visits();
-    const userName = process.env.REACT_APP_GITHUB_USER_NAME;
+    const userName = process.env.githubUserName;
     return {
         props: {
             uniqueVisitors: uniqueHits,
