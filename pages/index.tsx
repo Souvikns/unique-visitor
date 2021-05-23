@@ -14,6 +14,7 @@ const Index = ({ uniqueVisitors, totalHits, error }) => {
 
     const fetchGithubAvatar = async () => {
         try {
+            console.log("userName", userName)
             let res = await Axios({ url: `https://api.github.com/users/${userName}`, method: "GET" });
             setAvatar(res.data.avatar_url);
         } catch (error) {
