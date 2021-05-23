@@ -8,7 +8,7 @@ import Badge from '../components/badge';
 
 
 const Index = ({ uniqueVisitors, totalHits, error }) => {
-    const userName = process.env.githubUserName;
+    const userName = process.env.REACT_APP_GITHUB_USER_NAME;
 
     const [avatar, setAvatar] = useState('');
 
