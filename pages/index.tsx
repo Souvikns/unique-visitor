@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import { Visits } from '../lib/supabase';
 import { label } from '../lib/svg';
 import Axios from 'axios';
 import Appbar from '../components/appbar';
@@ -47,14 +47,10 @@ const Index = ({ uniqueVisitors, totalHits, error }) => {
 export default Index;
 
 Index.getInitialProps = async ({ req, res }: any) => {
-    let { data, error } = await supabase.from('visitors').select('*')
-    let totalHit = 0;
-    data.forEach(d => {
-        totalHit = totalHit + d.count;
-    })
+    let { totalHits, uniqueHits, error } = await Visits()
     return {
-        uniqueVisitors: data.length,
-        totalHits: totalHit,
+        uniqueVisitors: uniqueHits,
+        totalHits: totalHits,
         error
     }
 }
