@@ -46,8 +46,6 @@ const Index = ({ uniqueVisitors, totalHits, error }) => {
 
 export default Index;
 
-
-
 export const getStaticProps: GetStaticProps = async (context) => {
     let { totalHits, uniqueHits, error } = await Visits()
     return {
